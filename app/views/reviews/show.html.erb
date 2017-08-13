@@ -1,0 +1,58 @@
+<header>
+  <h2>
+    Review for <%= @movie.title %>
+  </h2>
+</header>
+
+<article>
+  <table>
+
+    <tr>
+      <th>
+        Reviewer Name
+      </th>
+      <td>
+        <%= @review.name %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        Stars
+      </th>
+      <td>
+        <%= @review.stars %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        Reviewer Location
+      </th>
+      <td>
+        <%= @review.location %>
+      </td>
+    </tr>
+
+    <tr>
+      <th>
+        Comments
+      </th>
+      <td>
+        <%= @review.comment %>
+      </td>
+    </tr>
+
+  </table>
+
+</article>
+
+<br />
+
+<%= button_to "Delete Review",
+      { action: "destroy", id: @review.id },
+      method: :delete, data: { confirm: "Are you sure?"} %>
+
+<br />
+
+<%= link_to "Back to Movie", movie_path(@movie) %>

@@ -1,0 +1,10 @@
+<header>
+  <h2>
+    <%= pluralize @reviews.count, "review" %>
+  </h2>
+
+</header>
+
+<%= render 'reviews_show', object: @reviews %>
+
+<%= link_to "Back to movie", @movie %>

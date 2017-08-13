@@ -1,0 +1,79 @@
+<h1>
+  <%= pluralize @movies.count, "Movie" %>
+</h1>
+
+<article>
+  <% @movies.each do |movie| %>
+    <header>
+      <%= show_poster movie %>
+      <%=  link_to movie.title, movie_path(movie) %>
+    </header>
+    <table class="align-left">
+      <tr>
+        <th>
+          Rating
+        </th>
+        <td>
+          <%= movie.rating %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Description
+        </th>
+        <td>
+          <%= movie.description %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Length
+        </th>
+        <td>
+          <%= movie.duration %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Released On
+        </th>
+        <td>
+          <%= movie.released_on %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Director
+        </th>
+        <td>
+          <%= movie.director %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Cast
+        </th>
+        <td>
+          <%= movie.cast %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Total Gross
+        </th>
+        <td>
+          <%= format_gross movie %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Average Stars
+        </th>
+        <td>
+          <%= display_stars movie %>
+        </td>
+      </tr>
+    </table>
+    <br />
+  <% end %>
+</article>

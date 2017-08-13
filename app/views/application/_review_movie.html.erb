@@ -1,0 +1,31 @@
+<header>
+  <h2>
+    New Review for <%= @movie.title %>
+  </h2>
+</header>
+
+<%= render 'errors', object: @review %>
+
+<%= form_for [@movie, @review] do |f| %>
+  <ul>
+    <li>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </li>
+    <li>
+      <%= f.label :stars %><br />
+      <% Review::Rating_stars.each do |star| %>
+        <%= f.radio_button :stars, star %> <%= star %><br />
+      <% end %>
+    </li>
+    <li>
+      <%= f.label :comment %>
+      <%= f.text_area :comment, size: "20x10" %>
+    </li>
+    <li>
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+    </li>
+  </ul>
+  <%= f.submit "Create" %>
+<% end %>

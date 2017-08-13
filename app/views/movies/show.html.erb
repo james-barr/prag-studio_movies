@@ -1,0 +1,92 @@
+<article>
+  <header>
+    <h1><%= @movie.title %></h1>
+    <%= show_poster @movie %>
+  </header>
+  <table class="align-left">
+    <tr>
+      <th>
+        Description
+      </th>
+      <td>
+        <%= @movie.description %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Rating
+      </th>
+      <td>
+        <%= @movie.rating %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Release Date
+      </th>
+      <td>
+        <%= @movie.released_on %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Total Gross
+      </th>
+      <td>
+        <%= format_gross @movie %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Director
+      </th>
+      <td>
+        <%= @movie.director %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Cast
+      </th>
+      <td>
+        <%= @movie.cast %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Duration
+      </th>
+      <td>
+        <%= @movie.duration %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Stars
+      </th>
+      <td>
+        <%= display_stars(@movie) %>
+      </td>
+    </tr>
+  </table>
+</article>
+
+<p>
+  <% if @movie.reviews.count > 0 %>
+    <h2>Most Recent Reviews:</h2>
+    <%= render 'reviews_show', object: @movie.recent_reviews %>
+    <p>
+      <%= link_to "Movie reviews", movie_reviews_path(@movie) %>
+    </p>
+  <% else %>
+  <% end %>
+</p>
+
+<p>
+  <%= link_to "Write review", new_movie_review_path(@movie) %>
+</p>
+
+<%= link_to "Edit", edit_movie_path(@movie) %>
+<%= link_to "Delete Movie", movie_path(@movie), method: :delete, data: {confirm: "Are you sure?"} %>
+
+<%= render 'review_movie' %>
