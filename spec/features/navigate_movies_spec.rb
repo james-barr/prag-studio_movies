@@ -77,4 +77,38 @@ describe "Navigating Events" do
     expect(current_path).to eq movie_path(m)
   end
 
+  it "navigates from movie index to users signup" do
+    visit movies_path
+    click_link "Signup"
+    e(current_path).to eq signup_path
+  end
+
+  it "navigates from movie show to users index" do
+    m = Movie.create! movie_attributes
+    visit movie_path(m)
+    click_link "All Users"
+    e(current_path).to eq users_path
+  end
+
+  it "navigates from user signup to user index" do
+    visit signup_path
+    click_link "Cancel"
+    e(current_path).to eq users_path
+  end
+
+  it "navigates from user index to user show" do
+    u = User.create! user_attributes
+    visit users_path
+    click_link u.name
+    e(current_path).to eq user_path(u)
+  end
+
+  it "navigates from user show to user edit" do
+    u = User.create! user_attributes
+    visit user_path(u)
+    click_link "Edit Account"
+    e(current_path).to eq edit_user_path(u)
+  end
+
+
 end

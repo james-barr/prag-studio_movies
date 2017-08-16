@@ -51,3 +51,24 @@ movie.reviews.create!(
   comment: "This was an amazing documentary about an amazing man.",
   location: "Mexico",
 )
+
+User.create!([
+  {
+    name: "Don",
+    email: "d@g",
+    password: "x",
+    password_confirmation: "x",
+  },
+  {
+    name: "Al",
+    email: "al@x",
+    password: "x",
+    password_confirmation: "x",
+  },
+  {
+    name: "Gary",
+    email: "g@y",
+    password: "y",
+    password_confirmation: "y",
+  },
+  ])

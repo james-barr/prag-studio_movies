@@ -1,0 +1,36 @@
+<header>
+  <h2>
+    <%= pluralize @users.count, "User" %>
+  </h2>
+</header>
+
+<% @users.each do |u| %>
+  <table>
+    <tr>
+      <th>
+        User Name:
+      </th>
+      <td>
+        <%= link_to u.name, user_path(u) %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        User Email:
+      </th>
+      <td>
+        <%= u.email %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        User Since:
+      </th>
+      <td>
+        <%= present_user_created(u) %>
+      </td>
+    </tr>
+    <br />
+  </table>
+
+<% end %>

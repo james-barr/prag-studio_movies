@@ -1,0 +1,38 @@
+<header>
+  <h2>
+    Showing <%= @user.name %>
+  </h2>
+</header>
+
+<article>
+  <table>
+    <tr>
+      <th>
+        User name:
+      </th>
+      <td>
+        <%= @user.name %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        User email:
+      </th>
+      <td>
+        <%= @user.email %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        User since
+      </th>
+      <td>
+        <%= present_user_created @user %>
+      </td>
+    </tr>
+  </table>
+</article>
+
+<%= link_to "Edit Account", edit_user_path(@user) %>
+
+<%= link_to "Delete Account", user_path(@user), :method => :delete, data: {confirm: "Are you sure?"} %>
