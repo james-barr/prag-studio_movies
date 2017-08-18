@@ -10,6 +10,7 @@ describe "Showing a user: " do
     e(page).to have_text u.username
     e(page).to have_text present_user_created(u)
     e(page).to have_selector "p.profile_image"
+    e(page).to have_css ("img[src*='#{gravatar_image(u)}']")
   end
 
 end

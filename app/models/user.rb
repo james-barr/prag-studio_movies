@@ -11,11 +11,14 @@ class User < ApplicationRecord
                       format: { with: /\A[a-zA-Z\d]+\z/i },
                       uniqueness: { case_sensitive: false }
 
+
+  def gravatar_id
+    Digest::MD5.hexdigest(email.downcase)
+  end
+
 private
   def email_lowercase
     self.email.downcase!
   end
-
-  
 
 end

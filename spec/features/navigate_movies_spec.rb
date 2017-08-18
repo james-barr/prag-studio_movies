@@ -110,5 +110,17 @@ describe "Navigating Events" do
     e(current_path).to eq edit_user_path(u)
   end
 
+  it "navigates from events index to sign in" do
+    visit movies_path
+    click_link "Sign in"
+    e(current_path).to eq signin_path
+  end
+
+  it "navigates from sign in to sign up" do
+    visit signin_path
+    click_link "Sign Up"
+    e(current_path).to eq signup_path
+  end
+
 
 end
