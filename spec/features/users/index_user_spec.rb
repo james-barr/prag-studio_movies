@@ -9,6 +9,7 @@ describe "Listing all users: " do
     visit users_path
     e(page).to have_text "3 Users"
     e(page).to have_text u1.name
+    e(page).to have_text u2.username
     e(page).to have_text u2.email
     e(page).to have_text u3.name
   end

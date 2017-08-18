@@ -2,6 +2,7 @@ def user_attributes(override = {} )
   {
     name: "Al",
     email: "y@g.com",
+    username: "alyg",
     password: "cat",
     password_confirmation: "cat"
   }.merge override
@@ -10,6 +11,7 @@ def user_attributes2(override = {})
   {
     name: "Mary",
     email: "m@x.com",
+    username: "marymeow",
     password: "meow",
     password_confirmation: "meow"
   }.merge override
@@ -18,6 +20,7 @@ def user_attributes3 override = {}
   {
     name: "Sean",
     email: "sean@x",
+    username: "sean1",
     password: "s1",
     password_confirmation: "s1"
   }.merge override

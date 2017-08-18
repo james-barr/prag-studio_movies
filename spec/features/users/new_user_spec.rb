@@ -13,6 +13,7 @@ describe "New user creation: " do
     visit signup_path
     fill_in "Name", with: "X"
     fill_in "Email", with: "x@x"
+    fill_in "Username", with: "seanx"
     fill_in "Password", with: "xx"
     fill_in "Confirm Password", with: "xx"
     click_button "Create Account"

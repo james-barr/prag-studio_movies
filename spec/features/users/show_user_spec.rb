@@ -7,7 +7,9 @@ describe "Showing a user: " do
     visit user_path(u)
     e(page).to have_text u.name
     e(page).to have_text u.email
+    e(page).to have_text u.username
     e(page).to have_text present_user_created(u)
+    e(page).to have_selector "p.profile_image"
   end
 
 end
