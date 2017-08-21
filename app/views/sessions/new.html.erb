@@ -4,10 +4,10 @@
   </h1>
 </header>
 
-<%= form_tag signin_path do %>
+<%= form_tag session_path do %>
   <fieldset>
     <p>
-      <%= label_tag :email %>
+      <%= label_tag :email, "Email or Username" %>
       <%= email_field_tag :email, nil, autofocus: true, required: true %>
     </p>
     <p>
@@ -15,7 +15,7 @@
       <%= password_field_tag :password, nil, required: true %>
     </p>
     <p>
-      <%= submit_tag "Sign in" %>
+      <%= submit_tag "Sign In" %>
     </p>
   </fieldset>
 
