@@ -39,6 +39,9 @@ describe "New session creation: " do
       click_button "Sign In"
       e(current_path).to eq user_path(u)
       e(page).to have_text "Welcome back"
+      e(page).to have_link u.name
+      e(page).not_to have_link "Sign In"
+      e(page).not_to have_link "Sign Up"
     end
 
     it "authenticates with proper username login info, redirects, and shows a flash" do
@@ -49,6 +52,9 @@ describe "New session creation: " do
       click_button "Sign In"
       e(current_path).to eq user_path(u)
       e(page).to have_text "Welcome back"
+      e(page).to have_link u.name
+      e(page).not_to have_link "Sign In"
+      e(page).not_to have_link "Sign Up"
     end
 
 end

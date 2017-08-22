@@ -19,6 +19,9 @@ describe "New user creation: " do
     click_button "Create Account"
     e(current_path).to eq user_path(User.last)
     e(page).to have_text "signed up"
+    e(page).to have_link "X"
+    e(page).not_to have_link "Sign In"
+    e(page).not_to have_link "Sign Up"
   end
 
 end

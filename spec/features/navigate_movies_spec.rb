@@ -77,9 +77,9 @@ describe "Navigating Events" do
     expect(current_path).to eq movie_path(m)
   end
 
-  it "navigates from movie index to users signup" do
+  it "navigates from movie index to users Sign Up" do
     visit movies_path
-    click_link "Signup"
+    click_link "Sign Up"
     e(current_path).to eq signup_path
   end
 
@@ -99,7 +99,7 @@ describe "Navigating Events" do
   it "navigates from user index to user show" do
     u = User.create! user_attributes
     visit users_path
-    click_link u.name
+    click_link u.name, match: :first
     e(current_path).to eq user_path(u)
   end
 
@@ -110,15 +110,15 @@ describe "Navigating Events" do
     e(current_path).to eq edit_user_path(u)
   end
 
-  it "navigates from events index to sign in" do
+  it "navigates from events index to Sign In" do
     visit movies_path
-    click_link "Sign in"
+    click_link "Sign In"
     e(current_path).to eq signin_path
   end
 
   it "navigates from sign in to sign up" do
     visit signin_path
-    click_link "Sign Up"
+    click_link "Sign Up", match: :first
     e(current_path).to eq signup_path
   end
 
