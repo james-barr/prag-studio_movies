@@ -99,7 +99,7 @@ describe "Navigating Events" do
   it "navigates from user index to user show" do
     u = User.create! user_attributes
     visit users_path
-    click_link u.name, match: :first
+    click_link u.name
     e(current_path).to eq user_path(u)
   end
 

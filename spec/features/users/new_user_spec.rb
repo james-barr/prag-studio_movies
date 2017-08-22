@@ -20,6 +20,7 @@ describe "New user creation: " do
     e(current_path).to eq user_path(User.last)
     e(page).to have_text "signed up"
     e(page).to have_link "X"
+    e(page).to have_link "Account Settings"
     e(page).not_to have_link "Sign In"
     e(page).not_to have_link "Sign Up"
   end

@@ -95,4 +95,19 @@ RSpec.describe User, type: :model do
     e(u2.errors[:username].any?).to eq true
   end
 
+  it "does not authenticate without a username / email" do
+    u = User.create! user_attributes username: "xxx", password: "x", password_confirmation: "x"
+    e(User.authenticate("", u.password)).not_to eq true
+  end
+
+  it "does not authenticate without a password" do
+    u = User.create! user_attributes username: "xxx", password: "x", password_confirmation: "x"
+    e(User.authenticate("xxx", "")).not_to eq true
+  end
+
+  it "does authenticate with a valid username / email and password combo" do
+    u = User.create! user_attributes username: "xxx", password: "x", password_confirmation: "x"
+    e(User.authenticate("xxx", "x")).to eq u
+  end
+
 end
