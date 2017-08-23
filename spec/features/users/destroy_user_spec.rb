@@ -4,9 +4,10 @@ describe "Destroying a user: " do
 
   it "destroys a user and redirects to user index" do
     u = User.create! user_attributes
+    sign_in u
     visit user_path(u)
     click_link "Delete Account"
-    e(current_path).to eq users_path
+    e(current_path).to eq root_path
     e(page).to have_text "deleted successfully"
     e(page).to have_text "Sign In"
     e(page).to have_text "Sign Up"
