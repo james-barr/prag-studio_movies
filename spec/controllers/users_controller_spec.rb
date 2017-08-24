@@ -37,6 +37,29 @@ RSpec.describe UsersController, type: :controller do
       e(response).to redirect_to signin_url
     end
 
+  end
+
+  context "when logged in as a wrong user" do
+
+    before(:each) do
+      @wrong_user = User.create! user_attributes2 email: "wrong@example.com"
+      session[:user_id] = @wrong_user.id
+    end
+
+    it "redirects when attempting to edit another's profile" do
+      get :edit, params: { id: @u }
+      e(response).to redirect_to root_url
+    end
+
+    it "redirects when attempting to update another's profile" do
+      patch :update, params: { id: @u }
+      e(response).to redirect_to root_url
+    end
+
+    it "redirects when attempting to destroy another's profile" do
+      delete :destroy, params: { id: @u }
+      e(response).to redirect_to root_url
+    end
 
   end
 

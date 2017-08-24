@@ -86,9 +86,9 @@ describe "Navigating Events" do
   it "navigates from movie show to users index" do
     u = User.create! user_attributes
     m = Movie.create! movie_attributes
-    sign_in u
     visit movie_path(m)
     click_link "All Users"
+    sign_in u
     e(current_path).to eq users_path
   end
 
