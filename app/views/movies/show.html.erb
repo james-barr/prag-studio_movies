@@ -86,7 +86,11 @@
   <%= link_to "Write review", new_movie_review_path(@movie) %>
 </p>
 
-<%= link_to "Edit", edit_movie_path(@movie) %>
-<%= link_to "Delete Movie", movie_path(@movie), method: :delete, data: {confirm: "Are you sure?"} %>
+<% if current_user_admin? %>
+<p>
+  <%= link_to "Edit", edit_movie_path(@movie) %>
+  <%= link_to "Delete Movie", movie_path(@movie), method: :delete, data: {confirm: "Are you sure?"} %>
+</p>
+<% end %>
 
 <%= render 'review_movie' %>

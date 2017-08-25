@@ -3,47 +3,40 @@ require "rails_helper"
 describe "Navigating Events" do
   it "navigates between show and index" do
     movie = Movie.create(movie_attributes(title: "Cat Movie"))
-
     visit movie_url(movie)
-
     click_link "All Movies"
-
     expect(current_path).to eq(movies_path)
   end
 
   it "navigates between index and show" do
     movie = Movie.create(movie_attributes)
-
     visit movies_url
-
     click_link movie.title
-
     expect(current_path).to eq(movie_path(movie))
   end
 
-  it "navigates from show to edit" do
+  it "navigates from movie show to movie edit (as admin)" do
+    u = User.create! user_attributes admin: true
+    sign_in u
     movie = Movie.create movie_attributes
-
     visit movie_url(movie)
-
     click_link "Edit"
-
     expect(current_path).to eq(edit_movie_path(movie))
   end
 
-  it "navigates from index to new" do
+  it "navigates from movie index to movie new (as admin)" do
+    u = User.create! user_attributes admin: true
+    sign_in u
     visit movies_url
-
     click_link "Add New Movie"
-
     expect(current_path).to eq(new_movie_path)
   end
 
-  it "navigates from new to index via cancel button" do
+  it "navigates from new to index via cancel button (as admin)" do
+    u = User.create! user_attributes admin: true
+    sign_in u
     visit new_movie_url
-
     click_link "Cancel"
-
     expect(current_path).to eq(movies_path)
   end
 

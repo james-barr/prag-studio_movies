@@ -54,21 +54,25 @@ movie.reviews.create!(
 
 User.create!([
   {
-    name: "Don",
-    email: "d@g",
+    name: "Admin",
+    email: "a@f",
+    username: "admin",
+    password: "x",
+    password_confirmation: "x",
+    admin: true
+  },
+  {
+    name: "Jon",
+    email: "j@f",
+    username: "jon",
     password: "x",
     password_confirmation: "x",
   },
   {
-    name: "Al",
-    email: "al@x",
+    name: "Bob",
+    email: "b@f",
+    username: "bob",
     password: "x",
     password_confirmation: "x",
-  },
-  {
-    name: "Gary",
-    email: "g@y",
-    password: "y",
-    password_confirmation: "y",
   },
   ])

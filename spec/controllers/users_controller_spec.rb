@@ -64,4 +64,30 @@ RSpec.describe UsersController, type: :controller do
   end
 
 
+  context "admin logged in" do
+
+    before do
+      @admin = User.create! user_attributes2 admin: true
+      session[:user_id] = @admin.id
+    end
+
+    it "can delete another user's account" do
+      expect{
+        delete :destroy, params: { id: @u }
+      }.to change(User, :count).by -1
+    end
+
+    it "cannot edit another user's account" do
+      get :edit, params: { id: @u }
+      e(response).to redirect_to root_url
+    end
+
+    it "cannot update another user's account" do
+      patch :update, params: { id: @u }
+      e(response).to redirect_to root_url
+    end
+
+  end
+
+
 end
