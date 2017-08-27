@@ -110,4 +110,18 @@ RSpec.describe User, type: :model do
     e(User.authenticate("xxx", "x")).to eq u
   end
 
+  it "has many reviews" do
+    u = User.new user_attributes
+    m1 = Movie.new movie_attributes
+    m2 = Movie.new movie_attributes
+    r1 = m1.reviews.new review_attributes
+    r2 = m2.reviews.new review_attributes2
+    r1.user = u
+    r2.user = u
+    r1.save!
+    r2.save!
+    e(u.reviews).to include r1
+    e(u.reviews).to include r2
+  end
+
 end

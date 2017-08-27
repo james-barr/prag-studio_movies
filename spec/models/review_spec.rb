@@ -1,12 +1,6 @@
 require "rails_helper"
 
-describe "A review::" do
-
-  it "validates that a name is present" do
-    r = Review.new name: ""
-    r.valid?
-    expect(r.errors[:name].any?).to eq true
-  end
+describe "A review: " do
 
   it "validates that valid stars are within the scoring bounds" do
     r = Review.new stars: Review::Rating_stars.sample
@@ -49,8 +43,10 @@ describe "A review::" do
   end
 
   it "validates that a review is valid with all correct attributes" do
+    u = User.create! user_attributes
     m = Movie.new movie_attributes
     r = Review.new review_attributes(movie: m)
+    r.user = u; r.save!
     r.valid?
     expect(r.errors.any?).to eq false
   end

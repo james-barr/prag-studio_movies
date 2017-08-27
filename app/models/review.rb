@@ -1,11 +1,12 @@
 class Review < ApplicationRecord
   belongs_to :movie
+  belongs_to :user
 
   Rating_stars = [
    1, 2, 3, 4, 5
   ]
 
-  validates :name, :location, presence: true
+  validates :location, presence: true
 
   validates :stars, inclusion: { in: Rating_stars,
     message: "Rating must be between 1 - 5"}

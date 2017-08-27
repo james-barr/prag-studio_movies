@@ -41,16 +41,20 @@ describe "Navigating Events" do
   end
 
   it "navigates from movie show to review index" do
+    u = User.create! user_attributes
     m = Movie.create movie_attributes
-    r = m.reviews.create review_attributes
+    r = m.reviews.new review_attributes
+    r.user = u; r.save!
     visit movie_url(m)
     click_link "Movie reviews"
     expect(current_path).to eq movie_reviews_path(m)
   end
 
   it "navigates from review index to movie show" do
+    u = User.create! user_attributes
     m = Movie.create movie_attributes
-    r = m.reviews.create review_attributes
+    r = m.reviews.new review_attributes
+    r.user = u; r.save!
     visit movie_reviews_url(m)
     click_link "Back to movie"
     expect(current_path).to eq movie_path(m)

@@ -1,4 +1,5 @@
 class ReviewsController < ApplicationController
+
   before_action :set_movie
 
   def index
@@ -11,6 +12,7 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @movie.reviews.new(review_params)
+    @review.user_id = session[:user_id]
     if @review.save
       flash[:success] = "Success! Your review has been posted."
       redirect_to @movie

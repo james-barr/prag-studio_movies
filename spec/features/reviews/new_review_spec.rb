@@ -2,14 +2,17 @@ require "rails_helper"
 
 describe "Create a new review - " do
 
+  before do
+    @u = User.create! user_attributes
+    sign_in @u
+  end
+
   it "saves a valid review and redirects" do
     m = Movie.create movie_attributes
     visit new_movie_review_url(m)
-    fill_in "Name", with: "Mike"
     fill_in "Location", with: "Ohio"
     fill_in "Comment", with: ""
     choose 'review_stars_5'
-    
     click_button "Create"
     expect(current_path).to eq movie_path(m)
     expect(page).to have_text "Success"

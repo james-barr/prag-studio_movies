@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+  has_many :reviews, dependent: :destroy
+
   has_secure_password
+
   before_save :email_lowercase
 
 

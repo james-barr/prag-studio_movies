@@ -9,10 +9,6 @@
 <%= form_for [@movie, @review] do |f| %>
   <ul>
     <li>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-    </li>
-    <li>
       <%= f.label :stars %><br />
       <% Review::Rating_stars.each do |star| %>
         <%= f.radio_button :stars, star %> <%= star %><br />

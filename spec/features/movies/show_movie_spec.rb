@@ -1,6 +1,11 @@
 require "rails_helper"
 
 describe "viewing a movie" do
+
+  before do
+    @u = User.create! user_attributes
+  end
+
   it "shows a movie's details" do
     movie = Movie.create(movie_attributes(total_gross: 300000000))
   visit movie_url(movie)
@@ -45,13 +50,12 @@ describe "viewing a movie" do
 
   it "shows the review form and allows valid reviews to pass, along with
   redirect and flash" do
+    sign_in @u
     m = Movie.create movie_attributes
     visit movie_url(m)
-    fill_in "Name", with: "Mike"
     fill_in "Location", with: "Ohio"
     fill_in "Comment", with: ""
     choose 'review_stars_5'
-
     click_button "Create"
     expect(current_path).to eq movie_path(m)
     expect(page).to have_text "Success"
@@ -70,7 +74,9 @@ describe "viewing a movie" do
 
   it "shows 'Terrible' if the rating was < 2" do
     m = Movie.create movie_attributes
-    r = m.reviews.create review_attributes(stars: 1)
+    r = m.reviews.new review_attributes(stars: 1)
+    r.user = @u
+    r.save!
     visit movie_path(m)
     expect(page).to have_text "Terrible"
   end
@@ -83,21 +89,27 @@ describe "viewing a movie" do
 
   it "shows number of stars if the the avg review > 2 stars" do
     m = Movie.create movie_attributes
-    r = m.reviews.create review_attributes(stars: 5)
+    r = m.reviews.new review_attributes(stars: 5)
+    r.user = @u
+    r.save!
     visit movie_path(m)
     expect(page).to have_text "*****"
   end
 
   it "it shows the 2 most recent reviews, if there are 2" do
+    u2 = User.create! user_attributes2
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes
-    r2 = m.reviews.create review_attributes2
+    r1 = m.reviews.new review_attributes
+    r2 = m.reviews.new review_attributes2
+    r1.user = @u
+    r2.user = u2
+    r1.save!; r2.save!
     visit movie_url(m)
-    expect(page).to have_text r1.name
+    expect(page).to have_text r1.user.name
     expect(page).to have_text r1.comment
     expect(page).to have_text r1.location
     expect(page).to have_text r1.stars
-    expect(page).to have_text r2.name
+    expect(page).to have_text r2.user.name
     expect(page).to have_text "Most Recent Reviews"
   end
 

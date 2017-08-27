@@ -1,30 +1,42 @@
 require "rails_helper"
 
 describe "A Movie" do
+
+  before do
+    @u1 = User.create! user_attributes
+    @u2 = User.create! user_attributes2
+  end
+
   it "is a flop if the total gross is < $50m and not a cult classic (ie < 5 reviews)" do
     movie = Movie.new(total_gross: 10)
     expect(movie.flop?).to eq(true)
   end
 
   it "is NOT a flop if the total gross is < $50m and not a cult classic (ie > 5 reviews)" do
+    u3 = User.create! user_attributes3
+    u4 = User.create! user_attributes name: "X2", email: "x@u", username: "X2"
+    u5 = User.create! user_attributes name: "X1", email: "x1@u", username: "X1"
     movie = Movie.create movie_attributes(total_gross: 10)
-    r1 = movie.reviews.create review_attributes
-    r2 = movie.reviews.create review_attributes
-    r3 = movie.reviews.create review_attributes
-    r4 = movie.reviews.create review_attributes
-    r5 = movie.reviews.create review_attributes
+    r1 = movie.reviews.new review_attributes
+    r2 = movie.reviews.new review_attributes
+    r3 = movie.reviews.new review_attributes
+    r4 = movie.reviews.new review_attributes
+    r5 = movie.reviews.new review_attributes
+    r1.user = @u1; r1.save!
+    r2.user = @u2; r2.save!
+    r3.user = u3; r3.save!
+    r4.user = u4; r4.save!
+    r5.user = u5; r5.save!
     expect(movie.flop?).to eq false
   end
 
   it "is not a flop if the total gross is > $50m" do
     movie = Movie.new(total_gross: 100_000_000)
-
     expect(movie.flop?).to eq(false)
   end
 
   it "is a flop if the total gross is blank" do
     movie = Movie.new(total_gross: nil)
-
     expect(movie.flop?).to eq(true)
   end
 
@@ -33,15 +45,12 @@ describe "A Movie" do
     movie2 = Movie.create movie_attributes(released_on: "2007-01-01")
     movie3 = Movie.create movie_attributes(released_on: "2001-01-01")
     movie4 = Movie.create movie_attributes(released_on: "2017-01-01")
-
     expect(Movie.previously_released.to_a).to eq([movie3, movie2, movie4])
   end
 
   it "validates that a movie title cannot be blank" do
     movie = Movie.new title: ""
-
     movie.valid?
-
     expect(movie.errors[:title].any?).to eq true
   end
 
@@ -56,15 +65,12 @@ describe "A Movie" do
 
   it "validates that a movie can only be rated according to approved list" do
     movie = Movie.new rating: "X"
-
     movie.valid?
-
     expect(movie.errors[:rating].any?).to eq true
   end
 
   it "validates that a rating cannot be blank" do
     movie = Movie.new rating: ""
-
     movie.valid?
     expect(movie.errors[:rating].any?).to eq true
   end
@@ -177,42 +183,53 @@ describe "A Movie" do
 
   it "has many reviews" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes
-    r2 = m.reviews.create review_attributes2
+    r1 = m.reviews.new review_attributes
+    r2 = m.reviews.new review_attributes2
+    r1.user = @u1; r2.user = @u2
+    r1.save!; r2.save!
     expect(m.reviews.count).to eq 2
   end
 
   it "deletes associated reviews when deleted" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes
+    r1 = m.reviews.new review_attributes
+    r1.user = @u1; r1.save!
     expect{m.destroy}.to change(Review, :count).by(-1)
   end
 
   it "determines the movie's average rating" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes
-    r2 = m.reviews.create review_attributes2
+    r1 = m.reviews.new review_attributes
+    r2 = m.reviews.new review_attributes2
+    r1.user = @u1; r1.save!
+    r2.user = @u2; r2.save!
     expect(m.avg_stars).to eq 3
   end
 
   it "determines if the movie was terrible" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes(stars: 1)
-    r2 = m.reviews.create review_attributes2(stars: 2)
+    r1 = m.reviews.new review_attributes(stars: 1)
+    r2 = m.reviews.new review_attributes2(stars: 2)
+    r1.user = @u1; r1.save!
+    r2.user = @u2; r2.save!
     expect(m.terrible?).to eq true
   end
 
   it "determines if the movie wasn't terrible" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes(stars: 4)
-    r2 = m.reviews.create review_attributes2(stars: 5)
+    r1 = m.reviews.new review_attributes(stars: 4)
+    r2 = m.reviews.new review_attributes2(stars: 5)
+    r1.user = @u1; r1.save!
+    r2.user = @u2; r2.save!
     expect(m.terrible?).to eq false
   end
 
   it "finds the 2 most recent reviews" do
     m = Movie.create movie_attributes
-    r1 = m.reviews.create review_attributes
-    m2 = m.reviews.create review_attributes2
+    r1 = m.reviews.new review_attributes
+    r2 = m.reviews.new review_attributes2
+    r1.user = @u1; r1.save!
+    r2.user = @u2; r2.save!
     expect(m.recent_reviews.length).to eq 2
   end
 
