@@ -39,18 +39,6 @@ Movie.create! ([
   },
 ])
 movie = Movie.find(1)
-movie.reviews.create!(
-  name: "Mike",
-  stars: 3,
-  comment: "I ate milk duds out of the cupholder.",
-  location: "CO",
-)
-movie.reviews.create!(
-  name: "Sharon",
-  stars:4,
-  comment: "This was an amazing documentary about an amazing man.",
-  location: "Mexico",
-)
 
 User.create!([
   {
@@ -76,3 +64,22 @@ User.create!([
     password_confirmation: "x",
   },
   ])
+
+m1 = movie.reviews.create!(
+  stars: 3,
+  comment: "I ate milk duds out of the cupholder.",
+  location: "CO",
+  user: User.find(1)
+)
+m2 = movie.reviews.create!(
+  stars:4,
+  comment: "This was an amazing documentary about an amazing man.",
+  location: "Mexico",
+  user: User.find(2)
+)
+m3 = movie.reviews.create!(
+  stars: 3,
+  comment: "This is a review, about a film that was made.",
+  location: "Mexico",
+  user: User.find(3)
+)

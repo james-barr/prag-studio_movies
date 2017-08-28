@@ -5,7 +5,7 @@
 </header>
 
 <p class="profile_image">
-  <%= image_tag gravatar_image(@user), alt: "profile image"%>
+  <%= gravatar_image(@user) %>
 </p>
 
 <article>
@@ -50,4 +50,21 @@
 <% end %>
 <% if current_user_or_admin? @user %>
   <%= link_to "Delete Account", user_path(@user), :method => :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+
+<% if @reviews.any? %>
+  <h3>Reviews: </h3>
+  <list>
+    <% @reviews.each do |r| %>
+    <ul>
+      <li>
+        Movie: <%= link_to r.movie.title, r.movie %>,
+        Stars: <%= r.stars %>,
+        Reviewed <%= time_ago_in_words r.created_at %> ago,
+        Comment: <%= r.comment %>
+      </li>
+    </ul>
+    <% end %>
+  </list>
+
 <% end %>

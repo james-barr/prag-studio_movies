@@ -1,64 +1,68 @@
 
 <article>
-  <% object.each do |r| %>
-    <table>
+<% object.each do |r| %>
+  <table>
 
-      <p>
-      <tr>
-        <th>
-          Reviewer Name
-        </th>
-        <td>
-          <%= r.user.name %>
-        </td>
-      </tr>
-      </p>
+    <p class="profile_image">
+      <%= gravatar_image(r.user) %>
+    </p>
 
-      <p>
-      <tr>
-        <th>
-          Stars
-        </th>
-        <td>
-          <%= pluralize r.stars, "star" %>
-        </td>
-      </tr>
-      </p>
+    <p>
+    <tr>
+      <th>
+        Reviewer Name
+      </th>
+      <td>
+        <%= link_to r.user.name, r.user %>
+      </td>
+    </tr>
+    </p>
 
-      <p>
-      <tr>
-        <th>
-          Reviewer Location
-        </th>
-        <td>
-          <%= r.location %>
-        </td>
-      </tr>
-      </p>
+    <p>
+    <tr>
+      <th>
+        Stars
+      </th>
+      <td>
+        <%= pluralize r.stars, "star" %>
+      </td>
+    </tr>
+    </p>
 
-      <p>
-      <tr>
-        <th>
-          When Reviewed
-        </th>
-        <td>
-          <%= time_since r %>
-        </td>
-      </tr>
-      </p>
+    <p>
+    <tr>
+      <th>
+        Reviewer Location
+      </th>
+      <td>
+        <%= r.location %>
+      </td>
+    </tr>
+    </p>
 
-      <p>
-      <tr>
-        <th>
-          Comments
-        </th>
-        <td>
-          <%= r.comment %>
-        </td>
-      </tr>
-      </p>
+    <p>
+    <tr>
+      <th>
+        When Reviewed
+      </th>
+      <td>
+        <%= time_since r %>
+      </td>
+    </tr>
+    </p>
 
-    </table>
-  <% end %>
+    <p>
+    <tr>
+      <th>
+        Comments
+      </th>
+      <td>
+        <%= r.comment %>
+      </td>
+    </tr>
+    </p>
+
+  </table>
+<% end %>
 
 </article>

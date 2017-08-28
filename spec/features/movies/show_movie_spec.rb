@@ -3,13 +3,13 @@ require "rails_helper"
 describe "viewing a movie" do
 
   before do
-    @u = User.create! user_attributes
+    @u = User.create! user_attributes admin: true
+    sign_in @u
   end
 
   it "shows a movie's details" do
     movie = Movie.create(movie_attributes(total_gross: 300000000))
   visit movie_url(movie)
-
     expect(page).to have_text movie.title
     expect(page).to have_text movie.rating
     expect(page).to have_text movie.description
@@ -62,8 +62,7 @@ describe "viewing a movie" do
     expect(page).to have_selector "p.flash_success"
   end
 
-  it "shows the review form and does not allow invalid submissions, but
-  provides error messages" do
+  it "shows the review form and does not allow invalid submissions, but provides error messages" do
     m = Movie.create movie_attributes
     visit movie_url(m)
     click_button "Create"
