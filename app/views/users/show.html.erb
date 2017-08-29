@@ -52,6 +52,20 @@
   <%= link_to "Delete Account", user_path(@user), :method => :delete, data: {confirm: "Are you sure?"} %>
 <% end %>
 
+<% if @fav_movies.any? %>
+  <h3>Favorites:</h3>
+  <p>
+    <% @fav_movies.each do |fm| %>
+    <ul>
+      <li>
+        <%= link_to fm.title, fm %>,
+        favorited <%= time_ago_in_words fm.created_at %> ago
+      </li>
+    </ul>
+    <% end %>
+  </p>
+<% end %>
+
 <% if @reviews.any? %>
   <h3>Reviews: </h3>
   <list>

@@ -124,4 +124,15 @@ RSpec.describe User, type: :model do
     e(u.reviews).to include r2
   end
 
+  it "has many fav_movies" do
+    u = User.create! user_attributes
+    m = Movie.create! movie_attributes
+    m2 = Movie.create! movie_attributes2
+    l1 = m.favorites.create! user: u
+    l2 = m2.favorites.create! user: u
+    e(u.fav_movies.count).to eq 2
+    e(u.fav_movies).to include m
+    e(u.fav_movies).to include m2
+  end
+
 end

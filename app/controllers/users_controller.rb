@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @reviews = @user.reviews
+    @fav_movies = @user.fav_movies
   end
 
   def edit

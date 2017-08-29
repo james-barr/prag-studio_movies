@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :fav_movies, through: :favorites, source: :movie
 
   has_secure_password
 

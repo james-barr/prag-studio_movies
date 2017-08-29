@@ -225,12 +225,19 @@ describe "A Movie" do
   end
 
   it "finds the 2 most recent reviews" do
-    m = Movie.create movie_attributes
-    r1 = m.reviews.new review_attributes
-    r2 = m.reviews.new review_attributes2
-    r1.user = @u1; r1.save!
-    r2.user = @u2; r2.save!
+    m = Movie.create! movie_attributes
+    r1 = m.reviews.create review_attributes user: @u1
+    r2 = m.reviews.create review_attributes2 user: @u2
     expect(m.recent_reviews.length).to eq 2
+  end
+
+  it "has many watchers" do
+    m = Movie.create! movie_attributes
+    w1 = m.favorites.create! user: @u1
+    w2 = m.favorites.create! user: @u2
+    e(m.watchers.count).to eq 2
+    e(m.watchers).to include @u1
+    e(m.watchers).to include @u2
   end
 
 end

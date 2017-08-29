@@ -1,5 +1,8 @@
 class Movie < ApplicationRecord
   has_many :reviews, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :watchers, through: :favorites, source: :user
+
 
   Ratings = %w(R PG G PG-13)
 

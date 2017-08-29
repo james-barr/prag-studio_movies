@@ -38,7 +38,9 @@ Movie.create! ([
     director: "Stone Cold Steve Austin",
   },
 ])
-movie = Movie.find(1)
+m1 = Movie.find(1)
+m2 = Movie.find(2)
+m3 = Movie.find(3)
 
 User.create!([
   {
@@ -64,22 +66,31 @@ User.create!([
     password_confirmation: "x",
   },
   ])
+u1 = User.find(1)
+u2 = User.find(2)
+u3 = User.find(3)
 
-m1 = movie.reviews.create!(
+r1 = m1.reviews.create!(
   stars: 3,
   comment: "I ate milk duds out of the cupholder.",
   location: "CO",
-  user: User.find(1)
+  user: u1
 )
-m2 = movie.reviews.create!(
+r2 = m1.reviews.create!(
   stars:4,
   comment: "This was an amazing documentary about an amazing man.",
   location: "Mexico",
-  user: User.find(2)
+  user: u2
 )
-m3 = movie.reviews.create!(
+r3 = m2.reviews.create!(
   stars: 3,
   comment: "This is a review, about a film that was made.",
   location: "Mexico",
-  user: User.find(3)
+  user: u3
 )
+
+f1 = m1.favorites.create! user: u1
+f2 = m2.favorites.create! user: u1
+f3 = m3.favorites.create! user: u1
+f4 = m1.favorites.create! user: u2
+f5 = m1.favorites.create! user: u3

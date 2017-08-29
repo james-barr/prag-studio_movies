@@ -71,6 +71,27 @@
   </table>
 </article>
 
+<% if @movie.watchers.any? %>
+<h3>Favorites</h3>
+<p>
+<% @movie.watchers.each do |watcher| %>
+  <table>
+    <tr>
+      <th>
+        <%= link_to watcher.name, watcher%>
+      </th>
+      <td>
+        <p class="profile_image">
+          <%= gravatar_image watcher, size: 30  %>
+        </p>
+      </td>
+    </tr>
+  </table>
+<% end %>
+</p>
+<% end %>
+
+
 <p>
   <% if @movie.reviews.count > 0 %>
     <h2>Most Recent Reviews:</h2>
