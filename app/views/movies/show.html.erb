@@ -68,6 +68,14 @@
         <%= display_stars(@movie) %>
       </td>
     </tr>
+    <tr>
+      <th>
+        Favorites
+      </th>
+      <td>
+        <%= pluralize @movie.favorites.count, "favorites" %>
+      </td>
+    </tr>
   </table>
 </article>
 
@@ -91,17 +99,23 @@
 </p>
 <% end %>
 
-
-<p>
-  <% if @movie.reviews.count > 0 %>
-    <h2>Most Recent Reviews:</h2>
-    <%= render 'reviews_show', object: @movie.recent_reviews %>
-    <p>
-      <%= link_to "Movie reviews", movie_reviews_path(@movie) %>
-    </p>
+<% if current_user %>
+  <% if @current_fave  %>
+    <%= button_to "Unfave", movie_favorite_path(@movie, @current_fave), method: :delete, class: "button unfave" %>
   <% else %>
+    <%= button_to "Fave", movie_favorites_path(@movie), class: "button fave" %>
   <% end %>
-</p>
+<% end %>
+
+
+<% if @movie.reviews.count > 0 %>
+  <h2>Most Recent Reviews:</h2>
+  <%= render 'reviews_show', object: @movie.recent_reviews %>
+  <p>
+    <%= link_to "Movie reviews", movie_reviews_path(@movie) %>
+  </p>
+<% else %>
+<% end %>
 
 <p>
   <%= link_to "Write review", new_movie_review_path(@movie) %>
