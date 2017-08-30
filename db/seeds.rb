@@ -94,3 +94,29 @@ f2 = m2.favorites.create! user: u1
 f3 = m3.favorites.create! user: u1
 f4 = m1.favorites.create! user: u2
 f5 = m1.favorites.create! user: u3
+
+Genre.create! ([
+  {
+    name: "Superhero"
+  },
+  {
+    name: "Action"
+  },
+  {
+    name: "Horror"
+  },
+  {
+    name: "Suspense"
+  },
+  {
+    name: "Comedy"
+  },
+])
+g1 = Genre.find 1
+g2 = Genre.find 2
+g3 = Genre.find 3
+g4 = Genre.find 4
+g5 = Genre.find 5
+mg1 = m1.genre_ids = [1,2,5]
+mg2 = m2.genre_ids = [1,2]
+mg3 = m3.genre_ids = [1,2]

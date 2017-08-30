@@ -5,6 +5,9 @@ describe "Creating a new movie" do
   before do
     @u = User.create! user_attributes admin: true
     sign_in @u
+    @g1 = Genre.create! name: "G1"
+    @g2 = Genre.create! name: "G2"
+    @g3 = Genre.create! name: "G3"
   end
 
   it "has all fields, creates a new movie, and redirects to show page (as admin)" do
@@ -18,10 +21,15 @@ describe "Creating a new movie" do
     fill_in "Director", with: "Frank"
     fill_in "Duration", with: "1 Hour"
     select (Time.now.year - 1).to_s, :from => "movie_released_on_1i"
+    check @g1.name
+    check @g2.name
     click_button "Create Movie"
     expect(current_path).to eq(movie_path(Movie.last))
     expect(page).to have_text "New Movie"
     expect(page).to have_selector "p.flash_notice"
+    e(page).to have_text @g1.name
+    e(page).to have_text @g2.name
+    e(page).not_to have_text @g3.name
   end
 
   it "does not save an invalid new movie (as admin)" do
