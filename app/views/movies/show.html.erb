@@ -1,3 +1,5 @@
+<% title "#{@movie.title}, rated: #{@movie.rating}" %>
+
 <article>
   <header>
     <h1><%= @movie.title %></h1>
@@ -79,6 +81,17 @@
   </table>
 </article>
 
+<% content_for :side do %>
+
+<h3>Genres</h3>
+<ul>
+  <% @genres.each do |g| %>
+  <li>
+    <%= g.name %>
+  </li>
+  <% end %>
+</ul>
+
 <% if @movie.watchers.any? %>
 <h3>Favorites</h3>
 <p>
@@ -97,6 +110,7 @@
   </table>
 <% end %>
 </p>
+<% end %>
 <% end %>
 
 <% if current_user %>
@@ -129,12 +143,3 @@
 <% end %>
 
 <%= render 'review_movie' %>
-
-<h3>Genres</h3>
-<ul>
-  <% @genres.each do |g| %>
-  <li>
-    <%= g.name %>
-  </li>
-  <% end %>
-</ul>

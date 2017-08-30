@@ -27,9 +27,12 @@ describe "Creating a new movie" do
     expect(current_path).to eq(movie_path(Movie.last))
     expect(page).to have_text "New Movie"
     expect(page).to have_selector "p.flash_notice"
-    e(page).to have_text @g1.name
-    e(page).to have_text @g2.name
+    within "aside#sidebar" do
+      e(page).to have_text @g1.name
+      e(page).to have_text @g2.name
+    end
     e(page).not_to have_text @g3.name
+    e(page).to have_title "Movies - New Movie"
   end
 
   it "does not save an invalid new movie (as admin)" do
