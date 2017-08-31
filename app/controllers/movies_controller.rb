@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   before_action :require_admin, except: [:index, :show]
 
   def index
-    @movies = Movie.previously_released
+    @movies = Movie.send(movies_scope)
   end
 
   def show
@@ -51,6 +51,14 @@ private
 
   def movie_params
     params.require(:movie).permit(:title, :total_gross, :description, :released_on, :rating, :director, :cast, :duration, :image_file_name, genre_ids: [])
+  end
+
+  def movies_scope
+    if params[:scope].in? %w(upcoming hits)
+      params[:scope]
+    else
+      :released
+    end
   end
 
 end

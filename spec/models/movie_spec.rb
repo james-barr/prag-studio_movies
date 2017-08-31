@@ -240,4 +240,40 @@ describe "A Movie" do
     e(m.watchers).to include @u2
   end
 
+  it "returns recently released movies" do
+    m1 = Movie.create movie_attributes released_on: Date.today
+    m2 = Movie.create movie_attributes released_on: "2001-01-01"
+    e(Movie.released.past_n_days(3)).to include m1
+    e(Movie.released.past_n_days(3)).not_to include m2
+  end
+
+  it "returns movies with specific ratings" do
+    m1 = Movie.create movie_attributes rating: "R"
+    m2 = Movie.create movie_attributes rating: "PG"
+    e(Movie.rated "R").to include m1
+    e(Movie.rated "R").not_to include m2
+  end
+
+  it "returns upcoming movies" do
+    m1 = Movie.create movie_attributes released_on: Date.tomorrow
+    m2 = Movie.create movie_attributes released_on: Date.today
+    e(Movie.upcoming).to include m1
+    e(Movie.upcoming).not_to include m2
+  end
+
+  it "returns movies that grossed more than" do
+    m1 = Movie.create movie_attributes total_gross: 100_000_001
+    m2 = Movie.create movie_attributes total_gross: 100_000_000
+    e(Movie.grossed_more_than 100_000_000).to include m1
+    e(Movie.grossed_more_than 100_000_000).not_to include m2
+  end
+
+  it "returns movies that grossed less than" do
+    m1 = Movie.create movie_attributes total_gross: 99_000_00
+    m2 = Movie.create movie_attributes total_gross: 100_000_000
+    e(Movie.grossed_less_than 100_000_000).to include m1
+    e(Movie.grossed_less_than 100_000_000).not_to include m2
+  end
+
+
 end

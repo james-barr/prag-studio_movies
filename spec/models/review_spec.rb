@@ -51,4 +51,13 @@ describe "A review: " do
     expect(r.errors.any?).to eq false
   end
 
+  it "returns reviews made in the past n days" do
+    u = User.create! user_attributes
+    m = Movie.create! movie_attributes
+    r1 = m.reviews.create review_attributes user: u, created_at: Time.now
+    r2 = m.reviews.create review_attributes user: u, created_at: Time.now - 100.days
+    e(Review.past_n_days 3).to include r1
+    e(Review.past_n_days 3).not_to include r2
+  end
+
 end

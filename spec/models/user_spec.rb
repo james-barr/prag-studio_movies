@@ -135,4 +135,18 @@ RSpec.describe User, type: :model do
     e(u.fav_movies).to include m2
   end
 
+  it "returns users by name" do
+    u1 = User.create! user_attributes name: "Alex"
+    u2 = User.create! user_attributes2 name: "Al"
+    e(User.by_name).to include u1
+    e(User.by_name).to include u2
+  end
+
+  it "returns users that are not admins" do
+    u1 = User.create! user_attributes admin: true
+    u2 = User.create! user_attributes2 admin: false
+    e(User.not_admins).not_to include u1
+    e(User.not_admins).to include u2
+  end
+
 end

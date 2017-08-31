@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :users
   root "movies#index"
 
+  get "movies/filter/:scope" => "movies#index", as: :filter_movies
+
   resources :movies do
     resources :reviews
     resources :favorites

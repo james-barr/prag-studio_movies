@@ -7,7 +7,6 @@ class User < ApplicationRecord
 
   before_save :email_lowercase
 
-
   validates :name, presence: true
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
@@ -16,6 +15,8 @@ class User < ApplicationRecord
                       format: { with: /\A[a-zA-Z\d]+\z/i },
                       uniqueness: { case_sensitive: false }
 
+  scope :by_name, -> { order(name: :desc) }
+  scope :not_admins, -> { by_name.where(admin: false) }
 
   def gravatar_id
     Digest::MD5.hexdigest(email.downcase)
